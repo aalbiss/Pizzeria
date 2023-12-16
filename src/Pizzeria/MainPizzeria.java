@@ -2,7 +2,6 @@ package Pizzeria;
 
 //TODO if there are N pizze in the oven I have to wait for the others and when there is a empty space in the oven i can cook them
 //FIXME the timers has to be in two different threads so i can run them in the same time
-
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;

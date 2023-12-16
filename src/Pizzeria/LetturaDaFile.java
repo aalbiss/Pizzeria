@@ -7,7 +7,7 @@ import java.io.IOException;
 public class LetturaDaFile {
 	public static void main(String[] args) {
 		// Specifica il percorso del file da leggere
-		String percorsoFile = "pizze.txt";
+		String percorsoFile = "ListinoPizze.txt";
 
 		try (BufferedReader reader = new BufferedReader(new FileReader(percorsoFile))) {
             String linea;

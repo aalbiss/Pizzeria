@@ -5,6 +5,9 @@ package Pizzeria;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MainPizzeria {
 
@@ -16,16 +19,15 @@ public class MainPizzeria {
 //		p.visualizza()
 		int selezione;
 
+		Runnable updateDate = () -> {
+            p.aumentaOrario();
+//            System.out.println(p.getOre() + ":" + p.getMinuti());
+//            System.out.println("Orario aumentato");
+        };
+		ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+		executor.scheduleAtFixedRate(updateDate, 0, 5, TimeUnit.SECONDS);
+
 		Timer timer = new Timer();
-		Timer generale = new Timer();
-		generale.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				p.aumentaOrario();
-				System.out.println(p.getOre() + ":" + p.getMinuti());
-				System.out.println("Orario aumentato");
-			}
-		}, 3000);
 
 		p.visualizzaListino();
 		do {

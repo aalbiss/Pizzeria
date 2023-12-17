@@ -51,11 +51,13 @@ public class Pizze {
 			do{
 				System.out.println("L'ordine è da asporto? (si o no)");
 				consegna=KB.nextLine();
-			}while(consegna.equalsIgnoreCase("SI") && consegna.equalsIgnoreCase("NO"));
+			}while(!consegna.equalsIgnoreCase("SI") && !consegna.equalsIgnoreCase("NO"));
 
 			if (consegna.equalsIgnoreCase("SI") && ore<=18){
 				pizzaAccettata = isPizzaAccettata();
-			}else{
+			} else if (consegna.equalsIgnoreCase("NO")) {
+				pizzaAccettata = isPizzaAccettata();
+			} else{
 				do {
 					System.out.println("La pizza può essere solo ritirata in pizzeria\nVa bene comunque? ");
 					consegna=KB.nextLine();
@@ -79,19 +81,20 @@ public class Pizze {
 		boolean pizzaAccettata = false;
 
 		System.out.print("Quale pizza desideri? ");
-		String pizzaRichiesta = KB.nextLine().toLowerCase();
-		if (listinoPizze.contains(pizzaRichiesta)) {
+		do {
+			String pizzaRichiesta = KB.nextLine().toLowerCase();
+			if (listinoPizze.contains(pizzaRichiesta)) {
 
-			String p = prezzoPizza(trovaPizza(pizzaRichiesta));
+				String p = prezzoPizza(trovaPizza(pizzaRichiesta));
 
-			System.out.println("Hai scelto " + pizzaRichiesta + ", la pizza costa " + p + "€. L'ordine è accettato!");
-			pizzeOrdinate.add(0, pizzaRichiesta);
-			pizzaAccettata = true;
-		} else {
-			System.out.println("Mi dispiace, " + pizzaRichiesta + " non è nel listino. Scegli un'altra pizza.");
-		}
-
-		return pizzaAccettata;
+				System.out.println("Hai scelto " + pizzaRichiesta + ", la pizza costa " + p + "€. L'ordine è accettato!");
+				pizzeOrdinate.add(0, pizzaRichiesta);
+				pizzaAccettata = true;
+			} else {
+				System.out.println("Mi dispiace, " + pizzaRichiesta + " non è nel listino. Scegli un'altra pizza.");
+            }
+		}while (!pizzaAccettata);
+		return true;
 	}
 
 	private static Vector<String> leggiListino() {
@@ -188,10 +191,12 @@ public class Pizze {
 	}
 
 	public void aumentaOrario(){
-		if(minuti<60)
+		if(minuti<59)
 			minuti+=1;
-		else
-			ore+=1;
+		else {
+			ore += 1;
+			minuti = 0;
+		}
 	}
 
 
